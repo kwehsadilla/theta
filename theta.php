@@ -1,7 +1,3 @@
-<?php
-
-function spit_carousel() {
-	echo'
 <!DOCTYPE html>
 <head>
 <script src ="jq.js"></script>
@@ -61,8 +57,15 @@ button {
 .button--one:hover {
 	/*color:white;*/
 	box-shadow: 0 0 0 10px rgba(250,250,250,0.1)
-
-
+}
+/* the good and the bad buttons */
+#button--good--one {
+        background: red;
+        left: 15%;
+        margin: 25px;
+}
+#button--bad--one {
+        background: blue;
 }
 /**/
 </style>
@@ -77,43 +80,51 @@ button {
 
 </div>
 
-</body>';
-};
-
-//let's run some funtions
-spit_carousel();
-?>
-
 <?php
-// i guess this is like the first "slide" or the greeting rather
+//the survey array
 $questions[0]="pssst, curious about your co2 footprint ?";
 $questions[1]="let's start with your energy supplier";
 $questions[2]='wrgrwg';
 ?>
 
+<!--back to php-->
+<?php
+echo '
+<div id="sneaky">
+this is a sneaky div
+</div>';
+?>
+
 <!--javascripts-->
 <script>
-	$( document ).ready(function() {
-		//why did we json_encode it again
-		//because transfering things from php to js and stuff
-		var sometext= <?php echo json_encode($questions); ?>;
+        $( document ).ready(function() {
+                //why did we json_encode it again
+                var sometext= <?php echo json_encode($questions); ?>;
 
-		var counter = 0;
+                //var questions = something - blabla
 
-		//i think here comes our on-click function
-		$("#button--one").click(function() {
-			$("#overlay_text").html(sometext[1]);
-		});
+                var counter = 0;
 
-		$("#overlay_text").html(sometext[counter]);
-	});
+                //i think here comes our on-click function
+                $("#button--one").click(function() {
+                        counter++
+                        $("#overlay_text").html(sometext[counter]);
+                        $("#button--one").hide();
+                        //$("#sneaky").hide();
+                        //now comes jq to add the new buttons
+                        var gb = $('<button class="button--one" id="button--good--one">GOOD ONE</button>');
+                        var bb = $('<button class="button--one" id="button--bad--one">BAD ONE</button>');
+                        $("#carousel").append(gb);
+                        $("#carousel").append(bb);
+                });
+
+	$("#overlay_text").html(sometext[counter]);
+        });
 </script>
 
 <script>
-function cool_func() {
-	document.body.innerHTML += "some text";
-	var div = document.getElementById('overlay_text');
-	//div.innerHTML += 'sljnfgsjln';
-	//div.remove();
+function hide_stuff(param) {
+$(param).hide()
 }
 </script>
+</body>
