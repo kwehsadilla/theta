@@ -72,8 +72,9 @@ button {
         <div id="overlay_text"></div>
 
 	<!--button-->
-<!--<button class="button--pulse" align="center"><a class="example_e" href="add-website-here" target="_blank" rel="nofollow noopener">FIND OUT</a></div>-->
-<button class="button--one">FIND OUT</button>
+
+<button class="button--one" id="button--one" on-click=cool_func()>FIND OUT</button>
+
 </div>
 
 </body>';
@@ -84,29 +85,35 @@ spit_carousel();
 ?>
 
 <?php
-	// i guess this is like the first "slide" or the greeting rather
-
-	$text = "pssst, curious about your co2 footprint ?";
+// i guess this is like the first "slide" or the greeting rather
+$questions[0]="pssst, curious about your co2 footprint ?";
+$questions[1]="let's start with your energy supplier";
+$questions[2]='wrgrwg';
 ?>
 
 <!--javascripts-->
 <script>
 	$( document ).ready(function() {
 		//why did we json_encode it again
-		var sometext= <?php echo json_encode($text); ?>;
-		$("#overlay_text").html(sometext);
-	});
+		//because transfering things from php to js and stuff
+		var sometext= <?php echo json_encode($questions); ?>;
 
-	//let's just make it reset for now.
-	$('input[type="reset"]').on('click', function(e){
-		    e.preventDefault();
-		        $('#carousel').empty();
-		    })
+		var counter = 0;
+
+		//i think here comes our on-click function
+		$("#button--one").click(function() {
+			$("#overlay_text").html(sometext[1]);
+		});
+
+		$("#overlay_text").html(sometext[counter]);
+	});
 </script>
 
-<!--back to php-->
-<?php
-//now comes the next "slide"
-
-?>
-
+<script>
+function cool_func() {
+	document.body.innerHTML += "some text";
+	var div = document.getElementById('overlay_text');
+	//div.innerHTML += 'sljnfgsjln';
+	//div.remove();
+}
+</script>
