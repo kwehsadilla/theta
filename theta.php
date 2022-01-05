@@ -60,14 +60,61 @@ button {
 }
 /* the good and the bad buttons */
 #button--good--one {
-        background: red;
-        left: 15%;
-        margin: 25px;
+        display: flex;
+        margin: 5px;
+
+        width: calc(100% / 3);
+        margin-left: calc(100% / 3);
+        margin-right: calc(100% / 3);
+
 }
 #button--bad--one {
-        background: blue;
+        display: flex;
+        margin: 5px;
+
+        width: calc(100% / 3);
+        margin-left: calc(100% / 3);
+        margin-right: calc(100% / 3);
+
 }
 /**/
+#button--good--water {
+        display: flex;
+        margin: 5px;
+
+        width: calc(100% / 3);
+        margin-left: calc(100% / 3);
+        margin-right: calc(100% / 3);
+
+}
+#button--bad--water {
+        display: flex;
+        margin: 5px;
+
+        width: calc(100% / 3);
+        margin-left: calc(100% / 3);
+        margin-right: calc(100% / 3);
+
+}
+
+#button--good--materials {
+        display: flex;
+        margin: 5px;
+
+        width: calc(100% / 3);
+        margin-left: calc(100% / 3);
+        margin-right: calc(100% / 3);
+
+}
+#button--bad--materials {
+        display: flex;
+        margin: 5px;
+
+        width: calc(100% / 3);
+        margin-left: calc(100% / 3);
+        margin-right: calc(100% / 3);
+
+}
 </style>
 </head>
 <body>
@@ -76,7 +123,7 @@ button {
 
 	<!--button-->
 
-<button class="button--one" id="button--one" on-click=cool_func()>FIND OUT</button>
+<button class="button--one" id="button--one">FIND OUT</button>
 
 </div>
 
@@ -84,42 +131,157 @@ button {
 //the survey array
 $questions[0]="pssst, curious about your co2 footprint ?";
 $questions[1]="let's start with your energy supplier";
-$questions[2]='wrgrwg';
-?>
-
-<!--back to php-->
-<?php
-echo '
-<div id="sneaky">
-this is a sneaky div
-</div>';
+$questions[2]="now how about your water situation ?";
+$questions[3]="and the materials ?";
+$questions[4]="how about logistics ?";
+$questions[5]="and the ecology?";
 ?>
 
 <!--javascripts-->
 <script>
         $( document ).ready(function() {
-                //why did we json_encode it again
                 var sometext= <?php echo json_encode($questions); ?>;
-
-                //var questions = something - blabla
 
                 var counter = 0;
 
-                //i think here comes our on-click function
                 $("#button--one").click(function() {
                         counter++
                         $("#overlay_text").html(sometext[counter]);
                         $("#button--one").hide();
-                        //$("#sneaky").hide();
-                        //now comes jq to add the new buttons
-                        var gb = $('<button class="button--one" id="button--good--one">GOOD ONE</button>');
-                        var bb = $('<button class="button--one" id="button--bad--one">BAD ONE</button>');
+
+			//now comes jq to add the new buttons
+                        var gb = $('<button class="button--one" id="button--good--one">GOOD SUPPLIER</button>');
+                        var bb = $('<button class="button--one" id="button--bad--one">BAD SUPPLIER</button>');
+			var br = $('<br>')
+
                         $("#carousel").append(gb);
-                        $("#carousel").append(bb);
+                        $("#carousel").append(br);
+			$("#carousel").append(br);
+			$("#carousel").append(br);
+			$("#carousel").append(br);
+			$("#carousel").append(bb);
                 });
 
 	$("#overlay_text").html(sometext[counter]);
         });
+</script>
+
+<script>
+
+var points = 0;
+//deal with stuff
+$(document).on('click', '#button--good--one', function() {
+	deal_with_stuff_and_increment();
+});
+
+$(document).on('click', '#button--bad--one', function() {
+	deal_with_stuff();
+});
+
+function deal_with_stuff_and_increment () {
+        points=points+1;
+        console.log(points);
+        var sometext= <?php echo json_encode($questions); ?>;
+        $("#overlay_text").html(sometext[2]);
+
+        //hide water buttons
+        hide_stuff("#button--good--one");
+        hide_stuff("#button--bad--one");
+
+	//go to materials
+        //materials();
+        //$("#overlay_text").html(sometext[3]);
+
+        var gb_water = $('<button class="button--one" id="button--good--water">GOOD ONE</button>');
+        var bb_water = $('<button class="button--one" id="button--bad--water">BAD ONE</button>');
+        var br_water = $('<br>');
+        $("#carousel").append(gb_water);
+        $("#carousel").append(br_water);
+        $("#carousel").append(br_water);
+	$("#carousel").append(br_water);
+	$("#carousel").append(br_water);
+        $("#carousel").append(bb_water);
+
+
+};
+
+function deal_with_stuff () {
+        console.log(points);
+        var sometext= <?php echo json_encode($questions); ?>;
+        $("#overlay_text").html(sometext[2]);
+
+        //hide water buttons
+        hide_stuff("#button--good--one");
+        hide_stuff("#button--bad--one");
+
+        var gb_water = $('<button class="button--one" id="button--good--water">GOOD ONE</button>');
+        var bb_water = $('<button class="button--one" id="button--bad--water">BAD ONE</button>');
+        var br_water = $('<br>');
+        $("#carousel").append(gb_water);
+        $("#carousel").append(br_water);
+        $("#carousel").append(br_water);
+	$("#carousel").append(br_water);
+	$("#carousel").append(br_water);
+        $("#carousel").append(bb_water);
+
+        
+        //go to other materials
+        //materials();
+        //$("#overlay_text").html(sometext[3]);
+};
+
+//water slide
+$(document).on('click', '#button--good--water', function() {
+
+        points=points+1;
+        console.log(points);
+        var sometext= <?php echo json_encode($questions); ?>;
+        $("#overlay_text").html(sometext[3]);
+
+        //hide water buttons
+        hide_stuff("#button--good--water");
+        hide_stuff("#button--bad--water");
+
+        //go to materials
+        //materials();
+        //$("#overlay_text").html(sometext[3]);
+
+        var gb_materials = $('<button class="button--one" id="button--good--materials">GOOD MATERIALS</button>');
+        var bb_materials = $('<button class="button--one" id="button--bad--materials">BAD MATERIALS</button>');
+        var br_materials = $('<br>');
+        $("#carousel").append(gb_materials);
+        $("#carousel").append(br_materials);
+        $("#carousel").append(br_materials);
+	$("#carousel").append(br_materials);
+	$("#carousel").append(br_materials);
+        $("#carousel").append(bb_materials);
+
+});
+//water slide continued
+$(document).on('click', '#button--bad--water', function() {
+
+        console.log(points);
+        var sometext= <?php echo json_encode($questions); ?>;
+        $("#overlay_text").html(sometext[3]);
+
+        //hide water buttons
+        hide_stuff("#button--good--water");
+        hide_stuff("#button--bad--water");
+
+        //go to materials
+        //materials();
+        //$("#overlay_text").html(sometext[3]);
+
+        var gb_materials = $('<button class="button--one" id="button--good--materials">GOOD MATERIALS</button>');
+        var bb_materials = $('<button class="button--one" id="button--bad--materials">BAD MATERIALS</button>');
+        var br_materials = $('<br>');
+        $("#carousel").append(gb_materials);
+        $("#carousel").append(br_materials);
+        $("#carousel").append(br_materials);
+	$("#carousel").append(br_materials);
+	$("#carousel").append(br_materials);
+        $("#carousel").append(bb_materials);
+});
 </script>
 
 <script>
