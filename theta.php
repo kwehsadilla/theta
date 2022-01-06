@@ -66,7 +66,6 @@ button {
         width: calc(100% / 3);
         margin-left: calc(100% / 3);
         margin-right: calc(100% / 3);
-
 }
 #button--bad--one {
         display: flex;
@@ -115,6 +114,24 @@ button {
         margin-right: calc(100% / 3);
 
 }
+/**/
+.stars {
+	display: flex;
+	
+	width: calc(100% / 3);
+	margin-left: calc(100% / 3);
+	margin-right: calc(100% / 3);
+
+	justify-content: center;
+	align-items: center; 
+
+	padding: 5px;
+}
+.stars-row {
+	margin: auto;
+	position: relative;
+}
+/**/
 </style>
 </head>
 <body>
@@ -147,6 +164,9 @@ $questions[5]="and the ecology?";
                 $("#button--one").click(function() {
                         counter++
                         $("#overlay_text").html(sometext[counter]);
+
+
+
                         $("#button--one").hide();
 
 			//now comes jq to add the new buttons
@@ -201,8 +221,6 @@ function deal_with_stuff_and_increment () {
 	$("#carousel").append(br_water);
 	$("#carousel").append(br_water);
         $("#carousel").append(bb_water);
-
-
 };
 
 function deal_with_stuff () {
@@ -282,11 +300,102 @@ $(document).on('click', '#button--bad--water', function() {
 	$("#carousel").append(br_materials);
         $("#carousel").append(bb_materials);
 });
+
+$(document).on('click', '#button--good--materials', function() {
+
+        //$("#overlay_text").hide();
+
+        points=points+1;
+        console.log(points);
+
+        hide_stuff("#button--good--materials");
+        hide_stuff("#button--bad--materials");
+
+	$("#overlay_text").html("your score");
+	stars(points);
+});
+
+$(document).on('click', '#button--bad--materials', function() {
+
+        //$("#overlay_text").hide();
+         console.log(points);
+
+        hide_stuff("#button--good--materials");
+        hide_stuff("#button--bad--materials");
+
+	//var anothertext= <?php echo json_encode("your score"); ?>;
+	//$("#overlay_text").html(anothertext);	
+	$("#overlay_text").html("your score");
+	stars(points);
+});
 </script>
 
 <script>
 function hide_stuff(param) {
-$(param).hide()
+	$(param).hide();
+}
+function stars(points) {
+	
+	//var anothertext = document.getElementById('overlay_text');
+	//anothertext.innerHTML += 'your score';	
+
+	if (points === 0) {
+		var stars = <?php echo json_encode('
+
+<div class="stars">
+	<div class="stars-row">
+		<br>
+		<br>
+		<img src="assets/star-empty.svg" width="100px">
+		<img src="assets/star-empty.svg" width="100px">
+		<img src="assets/star-empty.svg" width="100px">
+	</div>
+</div>
+'); ?>;
+	$("#carousel").append(stars);
+	} else if (points === 1) {
+		var stars = <?php echo json_encode('
+
+<div class="stars">
+        <div class="stars-row">
+                <br>
+                <br>
+                <img src="assets/star-filled.svg" width="100px">
+                <img src="assets/star-empty.svg" width="100px">
+                <img src="assets/star-empty.svg" width="100px">
+        </div>
+</div>
+'); ?>; 
+        $("#carousel").append(stars);
+	} else if (points === 2 ) {
+		var stars = <?php echo json_encode('
+
+<div class="stars">
+        <div class="stars-row">
+                <br>
+                <br>
+                <img src="assets/star-filled.svg" width="100px">
+                <img src="assets/star-filled.svg" width="100px">
+                <img src="assets/star-empty.svg" width="100px">
+        </div>
+</div>
+'); ?>; 
+        $("#carousel").append(stars);
+	} else {
+		var stars = <?php echo json_encode('
+
+<div class="stars">
+        <div class="stars-row">
+                <br>
+                <br>
+                <img src="assets/star-filled.svg" width="100px">
+                <img src="assets/star-filled.svg" width="100px">
+                <img src="assets/star-filled.svg" width="100px">
+        </div>
+</div>
+'); ?>; 
+        $("#carousel").append(stars);
+	}
 }
 </script>
 </body>
