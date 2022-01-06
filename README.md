@@ -32,4 +32,4 @@ more points of assessment are in the works. stay tuned.
 
 ### screenshot
 
-![screenshot](screenshot.png "demo")
+![screenshot](assets/screenshot.png "demo")
